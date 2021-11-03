@@ -3,7 +3,7 @@ module Pod
     include PodUtil
     include DirUtil
     include Config::Mixin
-    def initialize(name, source, spec_sources, subspecs, configuration, force, use_modular_headers=true, enable_bitcode=false, symbols=true)
+    def initialize(name, source, spec_sources, subspecs, configuration, force, use_modular_headers=true, enable_bitcode=false, symbols=true, support_maccatalyst=true)
       @name = name
       @source = source
       @spec_sources = spec_sources
@@ -13,6 +13,7 @@ module Pod
       @use_modular_headers = use_modular_headers
       @enable_bitcode = enable_bitcode
       @symbols = symbols
+      @support_maccatalyst = support_maccatalyst
     end
 
     def run
@@ -60,7 +61,8 @@ module Pod
         sandbox_root,
         spec,
         @configuration,
-        @symbols
+        @symbols,
+        @support_maccatalyst
       )
       builder.build
       builder.outputs target_dir

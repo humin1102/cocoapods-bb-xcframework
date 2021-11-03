@@ -34,7 +34,8 @@ module Pod
           ['--use-modular-headers', 'pakcage uses modular headers during packaging'],
           ['--no-static-library', 'package not use static library'],
           ['--enable-bitcode', 'package enable bitcode'],
-          ['--no-symbols', 'package not use symbols'] # 符号表
+          ['--no-symbols', 'package not use symbols'], # 符号表
+          ['--no-support-maccatalyst', 'package support generate MacCatalyst'] # 是否支持MacCatalyst方式支持iOS应用在mac平台运行库生成
         ].concat super
       end
 
@@ -50,6 +51,7 @@ module Pod
         @use_static_library = argv.flag?('static-library',true)
         @enable_bitcode = argv.flag?('enable-bitcode',false)
         @symbols = argv.flag?('symbols',true)
+        @support_maccatalyst = argv.flag?('support-maccatalyst',true)
         config.static_library_enable = @use_static_library
         super
       end
@@ -60,7 +62,7 @@ module Pod
       end
 
       def run
-        frameworker = Frameworker.new(@name, @source, @spec_sources, @subspecs, @configuration, @force, @use_modular_headers, @enable_bitcode, @symbols)
+        frameworker = Frameworker.new(@name, @source, @spec_sources, @subspecs, @configuration, @force, @use_modular_headers, @enable_bitcode, @symbols, @support_maccatalyst)
         frameworker.run
       end
     end

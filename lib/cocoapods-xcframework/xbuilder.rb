@@ -6,7 +6,7 @@ module Pod
     include XcodeProjHelper
     include PodUtil
     include Config::Mixin
-    def initialize(installer, source_dir, sandbox_root, spec, configuration, symbols=true)
+    def initialize(installer, source_dir, sandbox_root, spec, configuration, symbols=true, support_maccatalyst=true)
     # def initialize(platform, installer, source_dir, sandbox_root, spec, config)
         # @platform = platform
       @installer = installer
@@ -20,6 +20,7 @@ module Pod
       @configuration = configuration
       @outputs = Hash.new
       @symbols = symbols
+      @support_maccatalyst = support_maccatalyst
     end
 
     def build
@@ -135,6 +136,9 @@ module Pod
 
     def build_all_device defines
       # build general first because simulator will exchange SDKROOT to simulat sdk
+      if @support_maccatalyst
+        build_MacCatalyst_device defines
+      end
       build_general_device defines
       build_simulator_device defines
     end
@@ -154,7 +158,22 @@ module Pod
       xcode_xbuild(
         defines,
         @configuration,
-        @sandbox_root
+        @sandbox_root,
+        'export',
+        'iOS Simulator'
+      )
+    end
+
+    def build_MacCatalyst_device defines
+      UI.puts("--- Building framework #{@spec} with MacCatalyst device")
+      xcode_xbuild(
+        defines,
+        @configuration,
+        @sandbox_root,
+        'export',       # build_dir
+        'macOS',        # platform
+        "#{@sandbox_root}/Pods.xcodeproj", # project
+        "#{@spec.name}" # scheme
       )
     end
 
