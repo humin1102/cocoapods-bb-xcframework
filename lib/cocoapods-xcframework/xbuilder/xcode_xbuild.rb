@@ -24,11 +24,12 @@ module Pod
           skip_install = 'NO'
         end
         if not project.nil?
-          if not scheme.nil?
-            command = "xcodebuild #{defines} BUILD_DIR=#{build_dir} BUILD_LIBRARY_FOR_DISTRIBUTION=YES clean build -configuration #{configuration} -project '#{project}' -scheme '#{scheme}' -destination '#{destination}' ARCHS='#{archs}' SKIP_INSTALL=#{skip_install} | xcpretty 2>&1"
-          else
-            command = "xcodebuild #{defines} BUILD_DIR=#{build_dir} BUILD_LIBRARY_FOR_DISTRIBUTION=YES clean build -configuration #{configuration} -alltargets -scheme '#{scheme}' -destination '#{destination}' ARCHS='#{archs}' SKIP_INSTALL=#{skip_install} | xcpretty 2>&1"
-          end
+          # if not scheme.nil?
+          #   command = "xcodebuild #{defines} BUILD_DIR=#{build_dir} BUILD_LIBRARY_FOR_DISTRIBUTION=YES clean build -configuration #{configuration} -project '#{project}' -scheme '#{scheme}' -destination '#{destination}' ARCHS='#{archs}' SKIP_INSTALL=#{skip_install} | xcpretty 2>&1"
+          # else
+          #   command = "xcodebuild #{defines} BUILD_DIR=#{build_dir} BUILD_LIBRARY_FOR_DISTRIBUTION=YES clean build -configuration #{configuration} -alltargets -scheme '#{scheme}' -destination '#{destination}' ARCHS='#{archs}' SKIP_INSTALL=#{skip_install} | xcpretty 2>&1"
+          # end
+          command = "xcodebuild #{defines} BUILD_DIR=#{build_dir} BUILD_LIBRARY_FOR_DISTRIBUTION=YES clean build -configuration #{configuration} -alltargets -scheme '#{scheme}' -destination '#{destination}' ARCHS='#{archs}' SKIP_INSTALL=#{skip_install} | xcpretty 2>&1"
         else
           command = "xcodebuild #{defines} BUILD_DIR=#{build_dir} BUILD_LIBRARY_FOR_DISTRIBUTION=YES clean build -configuration #{configuration} -alltargets -destination '#{destination}' ARCHS='#{archs}' SKIP_INSTALL=#{skip_install} | xcpretty 2>&1"
         end

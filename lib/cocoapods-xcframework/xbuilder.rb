@@ -136,11 +136,9 @@ module Pod
 
     def build_all_device defines
       # build general first because simulator will exchange SDKROOT to simulat sdk
-      if @support_maccatalyst
-        build_MacCatalyst_device defines
-      end
       build_general_device defines
       build_simulator_device defines
+      build_MacCatalyst_device defines if @support_maccatalyst
     end
 
     def build_general_device defines

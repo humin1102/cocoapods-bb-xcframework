@@ -84,6 +84,9 @@ module Pod
               configuration.build_settings['ENABLE_BITCODE'] = 'YES'
               configuration.build_settings['BITCODE_GENERATION_MODE'] = 'bitcode'
             end
+            ### support MacCatalyst 默认生成工程不支持 by hm 21/11/3
+            configuration.build_settings['SUPPORTS_MACCATALYST'] = 'YES'
+            ### support MacCatalyst end
           end
           if target.name == spec.name
             target.build_configurations.each do |configuration|
@@ -117,6 +120,9 @@ module Pod
               configuration.build_settings['ENABLE_BITCODE'] = 'YES'
               configuration.build_settings['BITCODE_GENERATION_MODE'] = 'bitcode'
             end
+            ### support MacCatalyst 默认生成工程不支持 by hm 21/11/3
+            configuration.build_settings['SUPPORTS_MACCATALYST'] = 'YES'
+            ### support MacCatalyst end
           end
           if specs.include? target.name
             target.build_configurations.each do |configuration|
