@@ -13,7 +13,8 @@ module Pod
           archs = 'x86_64 arm64'
         elsif platform == 'iOS Simulator'
           destination = 'generic/platform=iOS Simulator'
-          archs = 'x86_64 i386 arm64'
+          archs = 'x86_64 arm64'
+          # archs = 'x86_64 i386 arm64' # 某些库不支持i386故去除 by hm 21/11/5
         else
           destination = 'generic/platform=iOS'
           archs = 'arm64 armv7'
