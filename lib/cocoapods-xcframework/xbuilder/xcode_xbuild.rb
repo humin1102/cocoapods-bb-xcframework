@@ -13,8 +13,8 @@ module Pod
           archs = 'x86_64 arm64'
         elsif platform == 'iOS Simulator'
           destination = 'generic/platform=iOS Simulator'
-          archs = 'x86_64 arm64'
-          # archs = 'x86_64 i386 arm64' # 某些库不支持i386故去除 by hm 21/11/5
+          # archs = 'x86_64 arm64'
+          archs = 'x86_64 i386 arm64' # swift库针对M1芯片移除x86架构，故模拟器添加i386，解决maccatalyst能正常生成
         else
           destination = 'generic/platform=iOS'
           archs = 'arm64 armv7'
